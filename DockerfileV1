@@ -1,0 +1,18 @@
+FROM ubuntu:latest
+RUN apt-get update && apt-get install  -y \
+ git \
+ build-essential \
+ cmake \
+ libssl-dev && \
+ mkdir /building && \
+ cd /building && \
+ git clone https://github.com/whoshuu/cpr.git && \
+ cd /building/cpr && \
+ sed -i '/BUILD_CPR_TESTS "Set to ON to build cpr tests." ON/ s//BUILD_CPR_TESTS "Set to ON to build cpr tests." OFF/g' CMakeLists.txt && \
+ git submodule update --init --recursive && \
+ cmake . && \
+ make
+COPY entrypoint.sh /
+RUN chmod +x entrypoint.sh
+ENTRYPOINT ["/entrypoint.sh"]
+CMD ["ls"]

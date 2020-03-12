@@ -1,0 +1,31 @@
+FROM ubuntu:18.04
+RUN apt-get update && \
+apt-get -y install && \
+apt-get -y remove x264 libx264-dev && \
+apt-get -y install build-essential checkinstall cmake pkg-config yasm && \
+apt-get -y install git gfortran && \
+apt-get -y install libjpeg8-dev libjasper-dev libpng12-dev && \ 
+apt-get -y install libtiff5-dev  &&\
+apt-get -y install libtiff-dev  &&\
+apt-get -y install libavcodec-dev libavformat-dev libswscale-dev libdc1394-22-dev &&\
+apt-get -y install libxine2-dev libv4l-dev &&\
+cd /usr/include/linux sudo ln -s -f ../libv4l1-videodev.h videodev.h && \
+cd $cwd  && \
+apt-get -y install libgstreamer0.10-dev libgstreamer-plugins-base0.10-dev &&\
+apt-get -y install libgtk2.0-dev libtbb-dev qt5-default &&\
+apt-get -y install libatlas-base-dev &&\
+apt-get -y install libmp3lame-dev libtheora-dev &&\
+apt-get -y install libvorbis-dev libxvidcore-dev libx264-dev &&\
+apt-get -y install libopencore-amrnb-dev libopencore-amrwb-dev sudo &&\
+apt-get -y install libavresample-dev &&\
+apt-get -y install x264 v4l-utils  &&\
+apt-get -y install libprotobuf-dev protobuf-compiler && \
+apt-get -y install libgoogle-glog-dev libgflags-dev && \
+apt-get -y install libgphoto2-dev libeigen3-dev libhdf5-dev doxygen
+RUN git clone https://github.com/opencv/opencv.git && \
+cd opencv && \
+git checkout master && \
+cd opencv 
+RUN  mkdir build && cd build
+COPY CMakeListsOV.txt /git/opencv/build/CMakeLists.txt 
+RUN 
